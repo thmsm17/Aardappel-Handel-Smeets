@@ -155,9 +155,11 @@ export default function Home() {
                   alt="Mat Smeets - Eigenaar" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 pt-28">
-                  <p className="text-white font-serif text-2xl font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Mat Smeets</p>
-                  <p className="text-yellow-300 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">Mede-eigenaar</p>
+                <div className="absolute bottom-4 right-4 bg-white px-4 py-3 rounded-xl shadow-lg border border-border flex items-center gap-3">
+                  <div>
+                    <p className="text-foreground font-serif text-lg font-bold leading-tight">Mat Smeets</p>
+                    <p className="text-primary text-sm font-medium">Mede-eigenaar</p>
+                  </div>
                 </div>
               </div>
               
