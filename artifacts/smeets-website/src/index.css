@@ -41,34 +41,34 @@
 }
 
 :root {
-  /* Warm Earthy Professional Theme */
-  --background: 40 20% 97%; /* #faf9f6 - Warm cream */
-  --foreground: 28 23% 14%; /* #2d241c - Deep charcoal brown */
+  /* Rich Red Agricultural Theme */
+  --background: 20 18% 97%; /* Warm off-white */
+  --foreground: 0 20% 12%;  /* Deep dark red-brown */
   
   --card: 0 0% 100%;
-  --card-foreground: 28 23% 14%;
+  --card-foreground: 0 20% 12%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 28 23% 14%;
+  --popover-foreground: 0 20% 12%;
   
-  --primary: 118 22% 23%; /* #2e472d - Deep Forest Green */
-  --primary-foreground: 40 20% 97%;
+  --primary: 0 58% 30%;    /* Deep Burgundy Red */
+  --primary-foreground: 20 18% 97%;
   
-  --secondary: 26 40% 39%; /* #8b5e3c - Earthy Clay Brown */
-  --secondary-foreground: 40 20% 97%;
+  --secondary: 0 45% 45%; /* Medium Red */
+  --secondary-foreground: 20 18% 97%;
   
-  --muted: 40 15% 90%;
-  --muted-foreground: 28 15% 40%;
+  --muted: 0 10% 92%;
+  --muted-foreground: 0 10% 42%;
   
-  --accent: 38 68% 52%; /* #d99b2e - Golden Harvest Yellow */
-  --accent-foreground: 28 23% 14%;
+  --accent: 38 75% 52%;   /* Golden Yellow - warm contrast to red */
+  --accent-foreground: 0 20% 12%;
   
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 40 15% 85%;
-  --input: 40 15% 85%;
-  --ring: 118 22% 23%;
+  --border: 0 10% 87%;
+  --input: 0 10% 87%;
+  --ring: 0 58% 30%;
 
   --radius: 0.75rem;
 }
