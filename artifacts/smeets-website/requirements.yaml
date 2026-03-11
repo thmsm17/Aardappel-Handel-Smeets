@@ -1,0 +1,18 @@
+packages:
+  "framer-motion": "For premium smooth scroll and section reveal animations"
+  "react-hook-form": "For robust contact form state management"
+  "@hookform/resolvers": "Zod validation resolver for the contact form"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes safely"
+
+images:
+  - path: "artifacts/smeets-website/public/images/logo.png"
+    description: "A minimalist, premium, and professional logo mark for 'Aardappel Handel Smeets', a Dutch potato trading family business. Earthy tones, deep forest green and warm brown. Subtle elegant agricultural motif."
+    aspect_ratio: "1:1"
+  - path: "artifacts/smeets-website/public/images/mat-smeets.png"
+    description: "A highly professional, warm, and inviting portrait of a middle-aged Dutch businessman/farmer standing confidently in an agricultural setting. He is wearing smart-casual country attire. Golden hour lighting, shallow depth of field."
+    aspect_ratio: "1:1"
+
+notes:
+  - The site relies on anchor links for navigation since it's a single-page marketing site.
+  - The contact form uses a simulated mutation hook since there is no backend defined.
