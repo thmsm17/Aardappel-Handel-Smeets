@@ -80,7 +80,7 @@ export default function Home() {
             className="max-w-3xl"
           >
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6">
-              <Leaf className="w-4 h-4 text-accent" />
+              <Leaf className="w-4 h-4 text-red-500" />
               <span>Familiebedrijf uit Maasbree</span>
             </motion.div>
             
@@ -94,7 +94,7 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
-              <a href="#products" className="px-8 py-4 rounded-xl font-semibold bg-accent text-accent-foreground shadow-xl shadow-accent/20 hover:bg-accent/90 hover:-translate-y-1 transition-all text-center">
+              <a href="#products" className="px-8 py-4 rounded-xl font-semibold bg-red-600 text-white shadow-xl shadow-red-900/30 hover:bg-red-700 hover:-translate-y-1 transition-all text-center">
                 Bekijk Assortiment
               </a>
               <a href="#contact" className="px-8 py-4 rounded-xl font-semibold bg-white/10 text-white backdrop-blur-md border border-white/20 hover:bg-white/20 hover:-translate-y-1 transition-all text-center">
