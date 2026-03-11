@@ -26,7 +26,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-primary-foreground/90">
                 <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                <span>Maasbree, Limburg<br/>Nederland</span>
+                <span>Sevenumse Dijk 6<br/>5993 NK Maasbree<br/>Nederland</span>
               </li>
               <li className="flex items-center gap-3 text-primary-foreground/90">
                 <Phone className="w-5 h-5 text-accent shrink-0" />
