@@ -63,8 +63,8 @@ export default function Home() {
         {/* landing page hero scenic dutch potato field agriculture */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=1920&auto=format&fit=crop" 
-            alt="Uitgestrekte aardappelvelden" 
+            src={`${import.meta.env.BASE_URL}images/hero-potatoes.jpg`}
+            alt="Aardappeloogst - Smeets Maasbree" 
             className="w-full h-full object-cover object-center"
           />
           {/* Wash gradient to ensure text readability */}
@@ -86,7 +86,7 @@ export default function Home() {
             
             <motion.h1 variants={fadeIn} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-lg">
               Kwaliteits<wbr/>aardappelen <br/>
-              <span className="text-accent italic">rechtstreeks</span> van het veld
+              <span className="text-red-500 italic">rechtstreeks</span> van het veld
             </motion.h1>
             
             <motion.p variants={fadeIn} className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl leading-relaxed drop-shadow-md">
