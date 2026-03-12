@@ -13,13 +13,15 @@ export type ContactInput = z.infer<typeof contactSchema>;
 export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: ContactInput) => {
-      const res = await fetch("https://formspree.io/f/xyknjwwb", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: "802c5e8b-eca5-47c5-8c58-7efdc80386f3",
+          subject: "Nieuw bericht via website Aardappel Handel Smeets",
           name: data.name,
           email: data.email,
           phone: data.phone || "",
@@ -27,10 +29,8 @@ export function useSubmitContact() {
         }),
       });
       const json = await res.json();
-      if (!res.ok || json.errors) {
-        throw new Error(
-          json.errors?.[0]?.message || "Er ging iets mis. Probeer het opnieuw."
-        );
+      if (!res.ok || !json.success) {
+        throw new Error(json.message || "Er ging iets mis. Probeer het opnieuw.");
       }
       return json;
     },
