@@ -1,11 +1,90 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactInput, useSubmitContact } from "@/hooks/use-contact";
 import { useToast } from "@/hooks/use-toast";
+
+type Product = {
+  id: string;
+  title: string;
+  badge: string;
+  image: string;
+  shortDesc: string;
+  bullets: string[];
+  fullDesc: string;
+  details: { label: string; value: string }[];
+};
+
+const products: Product[] = [
+  {
+    id: "consumptie",
+    title: "Consumptie",
+    badge: "Smaakvol",
+    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=800&auto=format&fit=crop",
+    shortDesc: "Direct geschikt voor consumptie. Smaakvol, veelzijdig en van de hoogste tafelkwaliteit.",
+    bullets: ["Vastkokend", "Kruimig"],
+    fullDesc: "Onze consumptieaardappelen worden zorgvuldig geselecteerd op smaak, formaat en kwaliteit. Ze zijn geschikt voor de detailhandel, supermarkten, groenteboeren en horecagroothandel.",
+    details: [
+      { label: "Rassen", value: "Nicola, Asterix, Charlotte, Bintje, Desiree" },
+      { label: "Gebruik", value: "Koken, stoven, frituren, salade, oven" },
+      { label: "Verpakking", value: "25 kg zakken · 1,5 en 2,5 kg consumentenverpakking" },
+      { label: "Seizoen", value: "Augustus t/m april" },
+      { label: "Levering", value: "Regionaal en nationaal" },
+    ],
+  },
+  {
+    id: "pootgoed",
+    title: "Pootgoed",
+    badge: "Basis",
+    image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=800&auto=format&fit=crop",
+    shortDesc: "De beste basis voor een nieuwe oogst. Gecertificeerd pootgoed met hoge groeikracht.",
+    bullets: ["Ziektevrij", "Hoge opbrengst"],
+    fullDesc: "Wij leveren NAK-gecertificeerd pootgoed in diverse klassen en rassen. Ons pootgoed is afkomstig van betrouwbare telers en voldoet aan de strengste fytosanitaire eisen. Wij adviseren u graag bij de rassenkeuze passend bij uw grondsoort en doel.",
+    details: [
+      { label: "Certificering", value: "NAK gecertificeerd (klasse E, A en B)" },
+      { label: "Rassen", value: "Divers — op aanvraag, afgestemd op uw teelt" },
+      { label: "Leverperiode", value: "November t/m april" },
+      { label: "Advies", value: "Persoonlijk rassenkeuzeadvies beschikbaar" },
+      { label: "Verpakking", value: "25 kg zakken of bigbag" },
+    ],
+  },
+  {
+    id: "industrie",
+    title: "Industrie",
+    badge: "Verwerking",
+    image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop",
+    shortDesc: "Specifiek geteeld voor de verwerkende industrie, perfect voor frites en chips.",
+    bullets: ["Juiste zetmeel", "Bulk levering"],
+    fullDesc: "Voor de frites- en chipsindustrie leveren wij partijen met de juiste knolvorm, droge stofgehalte en laag reducerend suikergehalte. Directe afvoer van het veld is mogelijk. Wij werken samen met grote verwerkende bedrijven en kunnen ook op contract leveren.",
+    details: [
+      { label: "Toepassingen", value: "Frites, chips, puree, zetmeelproductie" },
+      { label: "Kwaliteitseisen", value: "Hoog droge stof · laag reducerend suiker · juiste knolvorm" },
+      { label: "Leveringsvolume", value: "Vanaf 25 ton per levering" },
+      { label: "Levering", value: "Jaarrond beschikbaar, directe veldafvoer mogelijk" },
+      { label: "Contract", value: "Contractteelt op aanvraag" },
+    ],
+  },
+  {
+    id: "biologisch",
+    title: "Biologisch",
+    badge: "Duurzaam",
+    image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=800&auto=format&fit=crop",
+    shortDesc: "Puur natuur geteeld met respect voor de bodem en omgeving. SKAL gecertificeerd.",
+    bullets: ["SKAL keurmerk", "100% Natuurlijk"],
+    fullDesc: "Onze biologische aardappelen worden geteeld zonder chemische gewasbescherming of kunstmest, volledig in lijn met de SKAL-richtlijnen. Duurzame teelt voor een gezondere bodem en een schoner product voor de consument.",
+    details: [
+      { label: "Certificering", value: "SKAL gecertificeerd" },
+      { label: "Teeltmethode", value: "Zonder chemische bestrijdingsmiddelen of kunstmest" },
+      { label: "Rassen", value: "Op aanvraag — beperkt maar groeiend aanbod" },
+      { label: "Seizoen", value: "Beperkt seizoensaanbod" },
+      { label: "Prijsklasse", value: "Meerprijs van toepassing t.o.v. gangbare teelt" },
+    ],
+  },
+];
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -23,6 +102,7 @@ const staggerContainer = {
 export default function Home() {
   const { toast } = useToast();
   const contactMutation = useSubmitContact();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
   const form = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
@@ -181,97 +261,36 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Product 1 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-card rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="h-48 relative overflow-hidden">
-                {/* fresh potatoes in basket */}
-                <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=800&auto=format&fit=crop" alt="Consumptieaardappelen" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary">Smaakvol</div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-serif font-bold text-foreground mb-2">Consumptie</h4>
-                <p className="text-muted-foreground text-sm mb-4">Direct geschikt voor consumptie. Smaakvol, veelzijdig en van de hoogste tafelkwaliteit.</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Vastkokend</li>
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Kruimig</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Product 2 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-card rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="h-48 relative overflow-hidden">
-                {/* sprouting seed potatoes */}
-                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=800&auto=format&fit=crop" alt="Pootaardappelen" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary">Basis</div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-serif font-bold text-foreground mb-2">Pootgoed</h4>
-                <p className="text-muted-foreground text-sm mb-4">De beste basis voor een nieuwe oogst. Gecertificeerd pootgoed met hoge groeikracht.</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Ziektevrij</li>
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Hoge opbrengst</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Product 3 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-card rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="h-48 relative overflow-hidden">
-                {/* french fries industrial potatoes */}
-                <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop" alt="Industrieaardappelen" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary">Verwerking</div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-serif font-bold text-foreground mb-2">Industrie</h4>
-                <p className="text-muted-foreground text-sm mb-4">Specifiek geteeld voor de verwerkende industrie, perfect voor frites en chips.</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Juiste zetmeel</li>
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> Bulk levering</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Product 4 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="bg-card rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="h-48 relative overflow-hidden">
-                {/* organic farm soil potatoes */}
-                <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=800&auto=format&fit=crop" alt="Biologische aardappelen" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary">Duurzaam</div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-serif font-bold text-foreground mb-2">Biologisch</h4>
-                <p className="text-muted-foreground text-sm mb-4">Puur natuur geteeld met respect voor de bodem en omgeving. SKAL gecertificeerd.</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> SKAL keurmerk</li>
-                  <li className="flex items-center gap-2 text-sm text-foreground/80"><CheckCircle2 className="w-4 h-4 text-secondary" /> 100% Natuurlijk</li>
-                </ul>
-              </div>
-            </motion.div>
+            {products.map((product, i) => (
+              <motion.button
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i + 1) * 0.1 }}
+                onClick={() => setSelectedProduct(product)}
+                className="bg-card rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group text-left w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                <div className="h-48 relative overflow-hidden">
+                  <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary">{product.badge}</div>
+                </div>
+                <div className="p-6">
+                  <h4 className="text-xl font-serif font-bold text-foreground mb-2">{product.title}</h4>
+                  <p className="text-muted-foreground text-sm mb-4">{product.shortDesc}</p>
+                  <ul className="space-y-2 mb-4">
+                    {product.bullets.map((b) => (
+                      <li key={b} className="flex items-center gap-2 text-sm text-foreground/80">
+                        <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" /> {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
+                    Meer informatie <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </motion.button>
+            ))}
           </div>
         </div>
       </section>
@@ -392,7 +411,7 @@ export default function Home() {
                   <div>
                     <h5 className="font-bold text-foreground mb-1">Telefoon</h5>
                     <p className="text-muted-foreground leading-relaxed">
-                      +31 (0)77 123 4567<br/>
+                      <a href="tel:+31774652200" className="hover:text-primary transition-colors">077 465 22 00</a><br/>
                       <span className="text-sm">Ma - Vr: 08:00 - 17:00</span>
                     </p>
                   </div>
@@ -405,7 +424,7 @@ export default function Home() {
                   <div>
                     <h5 className="font-bold text-foreground mb-1">E-mail</h5>
                     <p className="text-muted-foreground leading-relaxed">
-                      info@smeets-aardappelen.nl
+                      <a href="mailto:info@gebrsmeets.nl" className="hover:text-primary transition-colors">info@gebrsmeets.nl</a>
                     </p>
                   </div>
                 </div>
@@ -492,6 +511,85 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {/* PRODUCT MODAL */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            key="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              key="modal-panel"
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative h-56 overflow-hidden">
+                <img
+                  src={selectedProduct.image}
+                  alt={selectedProduct.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-6">
+                  <span className="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                    {selectedProduct.badge}
+                  </span>
+                  <h3 className="text-3xl font-serif font-bold text-white mt-2">
+                    {selectedProduct.title}aardappelen
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="absolute top-4 right-4 w-9 h-9 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-8">
+                <p className="text-muted-foreground text-base leading-relaxed mb-8">
+                  {selectedProduct.fullDesc}
+                </p>
+
+                <div className="space-y-3 mb-8">
+                  {selectedProduct.details.map((d) => (
+                    <div key={d.label} className="flex gap-3 pb-3 border-b border-border last:border-0">
+                      <span className="text-sm font-bold text-foreground w-32 shrink-0">{d.label}</span>
+                      <span className="text-sm text-muted-foreground">{d.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  <a
+                    href="#contact"
+                    onClick={() => setSelectedProduct(null)}
+                    className="btn-animate flex-1 py-3 px-6 rounded-xl font-semibold bg-primary text-primary-foreground text-center"
+                  >
+                    Offerte Aanvragen
+                  </a>
+                  <button
+                    onClick={() => setSelectedProduct(null)}
+                    className="btn-animate py-3 px-6 rounded-xl font-semibold border border-border text-foreground hover:bg-background transition-colors"
+                  >
+                    Sluiten
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

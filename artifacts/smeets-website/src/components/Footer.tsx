@@ -30,11 +30,11 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3 text-primary-foreground/90">
                 <Phone className="w-5 h-5 text-accent shrink-0" />
-                <span>+31 (0)77 123 4567</span>
+                <a href="tel:+31774652200" className="hover:text-white transition-colors">077 465 22 00</a>
               </li>
               <li className="flex items-center gap-3 text-primary-foreground/90">
                 <Mail className="w-5 h-5 text-accent shrink-0" />
-                <span>info@smeets-aardappelen.nl</span>
+                <a href="mailto:info@gebrsmeets.nl" className="hover:text-white transition-colors">info@gebrsmeets.nl</a>
               </li>
             </ul>
           </div>

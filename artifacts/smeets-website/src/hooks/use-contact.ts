@@ -13,10 +13,16 @@ export type ContactInput = z.infer<typeof contactSchema>;
 export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: ContactInput) => {
-      // Simulate API call since no backend is defined
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Contact form submitted:", data);
-      return { success: true };
+      const res = await fetch(`${import.meta.env.BASE_URL}api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Er ging iets mis. Probeer het opnieuw.");
+      }
+      return res.json();
     },
   });
 }
