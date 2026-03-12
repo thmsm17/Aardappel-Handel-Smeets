@@ -13,7 +13,7 @@ export type ContactInput = z.infer<typeof contactSchema>;
 export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: ContactInput) => {
-      const res = await fetch("https://formspree.io/f/info@gebrsmeets.nl", {
+      const res = await fetch("https://formspree.io/f/xyknjwwb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
