@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Users, Star, Truck, MapPin, Mail, Phone, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactInput, useSubmitContact } from "@/hooks/use-contact";
@@ -163,16 +163,6 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Floating Wilbert Card */}
-              <div className="absolute -bottom-8 -left-8 md:-left-12 bg-white p-5 rounded-2xl shadow-xl border border-border flex items-center gap-5 max-w-xs animate-in slide-in-from-bottom-8 duration-700 delay-300">
-                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary shrink-0">
-                  <Users size={28} />
-                </div>
-                <div>
-                  <p className="text-foreground font-serif text-lg font-bold">Wilbert Smeets</p>
-                  <p className="text-muted-foreground text-sm font-medium">Mede-eigenaar & Logistiek</p>
-                </div>
-              </div>
             </motion.div>
             
           </div>
