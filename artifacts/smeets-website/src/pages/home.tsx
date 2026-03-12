@@ -94,10 +94,10 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
-              <a href="#products" className="px-8 py-4 rounded-xl font-semibold bg-red-600 text-white shadow-xl shadow-red-900/30 hover:bg-red-700 hover:-translate-y-1 transition-all text-center">
+              <a href="#products" className="btn-animate px-8 py-4 rounded-xl font-semibold bg-red-600 text-white shadow-xl shadow-red-900/30 text-center">
                 Bekijk Assortiment
               </a>
-              <a href="#contact" className="px-8 py-4 rounded-xl font-semibold bg-white/10 text-white backdrop-blur-md border border-white/20 hover:bg-white/20 hover:-translate-y-1 transition-all text-center">
+              <a href="#contact" className="btn-animate px-8 py-4 rounded-xl font-semibold bg-white/10 text-white backdrop-blur-md border border-white/20 hover:bg-white/20 text-center">
                 Neem Contact Op
               </a>
             </motion.div>
@@ -470,7 +470,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={contactMutation.isPending}
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:bg-primary/90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                  className="btn-animate w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {contactMutation.isPending ? (
                     <>

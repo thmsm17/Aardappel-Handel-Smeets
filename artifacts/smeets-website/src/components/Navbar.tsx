@@ -66,7 +66,7 @@ export function Navbar() {
           <a 
             href="#contact"
             className={cn(
-              "px-5 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0",
+              "btn-animate px-5 py-2.5 rounded-full font-medium shadow-lg",
               isScrolled
                 ? "bg-primary text-primary-foreground shadow-primary/20"
                 : "bg-white text-primary shadow-black/20"
