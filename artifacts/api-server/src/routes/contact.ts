@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import rateLimit from "express-rate-limit";
 
 const contactLimiter = rateLimit({
@@ -14,37 +14,20 @@ const contactLimiter = rateLimit({
 
 const router = Router();
 
-// Resend integration via Replit Connectors
-async function getResendClient() {
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-  const xReplitToken = process.env.REPL_IDENTITY
-    ? "repl " + process.env.REPL_IDENTITY
-    : process.env.WEB_REPL_RENEWAL
-    ? "depl " + process.env.WEB_REPL_RENEWAL
-    : null;
+function createTransporter() {
+  const user = process.env["GMAIL_USER"];
+  const pass = process.env["GMAIL_APP_PASS"];
 
-  if (!xReplitToken || !hostname) {
-    throw new Error("Replit connector token not found");
+  if (!user || !pass) {
+    throw new Error("Gmail credentials (GMAIL_USER / GMAIL_APP_PASS) zijn niet geconfigureerd.");
   }
 
-  const data = await fetch(
-    "https://" + hostname + "/api/v2/connection?include_secrets=true&connector_names=resend",
-    {
-      headers: {
-        Accept: "application/json",
-        "X-Replit-Token": xReplitToken,
-      },
-    }
-  ).then((res) => res.json()).then((d) => d.items?.[0]);
-
-  if (!data?.settings?.api_key) {
-    throw new Error("Resend not connected");
-  }
-
-  return {
-    client: new Resend(data.settings.api_key),
-    fromEmail: (data.settings.from_email as string) || "onboarding@resend.dev",
-  };
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: { user, pass },
+  });
 }
 
 router.post("/contact", contactLimiter, async (req, res) => {
@@ -55,12 +38,12 @@ router.post("/contact", contactLimiter, async (req, res) => {
   }
 
   try {
-    const { client, fromEmail } = await getResendClient();
+    const transporter = createTransporter();
 
-    await client.emails.send({
-      from: `Aardappel Handel Smeets <${fromEmail}>`,
-      to: ["info@gebrsmeets.nl"],
-      reply_to: email,
+    await transporter.sendMail({
+      from: `"Website Smeets" <${process.env["GMAIL_USER"]}>`,
+      to: "info@gebrsmeets.nl",
+      replyTo: email,
       subject: `Nieuw contactbericht van ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -93,6 +76,7 @@ router.post("/contact", contactLimiter, async (req, res) => {
       `,
     });
 
+    console.log(`Contact form: email sent from ${email} (${name})`);
     return res.json({ success: true });
   } catch (err) {
     console.error("Email send error:", err);
