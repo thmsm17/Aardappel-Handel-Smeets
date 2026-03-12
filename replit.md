@@ -4,6 +4,10 @@
 
 pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
 
+## Integrations
+
+- **Resend** (email) — connected via Replit Connectors. Used in `artifacts/api-server/src/routes/contact.ts` to send contact form submissions to info@gebrsmeets.nl. Uses `REPLIT_CONNECTORS_HOSTNAME` + `REPL_IDENTITY` env vars (auto-injected by Replit). NOTE: On the free Resend plan, the sender domain is `onboarding@resend.dev`. To send from `info@gebrsmeets.nl`, the domain `gebrsmeets.nl` must be verified in the Resend dashboard.
+
 ## Stack
 
 - **Monorepo tool**: pnpm workspaces
@@ -90,6 +94,15 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 ### `lib/api-client-react` (`@workspace/api-client-react`)
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
+
+### `artifacts/smeets-website` (`@workspace/smeets-website`)
+
+Dutch-language single-page website for Aardappel Handel Smeets (Maasbree). React + Vite + Tailwind. Deep burgundy red (`primary: 0 58% 30%`) color scheme.
+
+- Real photos: `public/images/hero-potatoes.jpg`, `public/images/mat-smeets.png`
+- Logo: `public/images/logo.svg` (custom hand-crafted SVG potato icon)
+- Contact form calls `POST /api/contact` on the API server
+- Product cards open a detail modal (AnimatePresence/framer-motion)
 
 ### `scripts` (`@workspace/scripts`)
 
