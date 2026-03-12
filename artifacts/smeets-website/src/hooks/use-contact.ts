@@ -13,16 +13,26 @@ export type ContactInput = z.infer<typeof contactSchema>;
 export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: ContactInput) => {
-      const res = await fetch(`${import.meta.env.BASE_URL}api/contact`, {
+      const res = await fetch("https://formspree.io/f/info@gebrsmeets.nl", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone || "",
+          message: data.message,
+        }),
       });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || "Er ging iets mis. Probeer het opnieuw.");
+      const json = await res.json();
+      if (!res.ok || json.errors) {
+        throw new Error(
+          json.errors?.[0]?.message || "Er ging iets mis. Probeer het opnieuw."
+        );
       }
-      return res.json();
+      return json;
     },
   });
 }
