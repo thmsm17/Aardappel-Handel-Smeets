@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2, X, ChevronLeft, ChevronRight, BookOpen, ExternalLink } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactInput, useSubmitContact } from "@/hooks/use-contact";
@@ -86,6 +86,21 @@ const products: Product[] = [
   },
 ];
 
+const columns = [
+  { title: "'Spuitvrije zone maar snel vergeten'", date: "20 mei 2025", url: "https://www.boerderij.nl/spuitvrije-zone-maar-snel-vergeten" },
+  { title: "'Kostprijsdekkend saldo aardappelprijzen'", date: "25 feb 2025", url: "https://www.boerderij.nl/kostprijsdekkend-saldo-aardappelprijzen" },
+  { title: "'Opnieuw kaalslag: boeren zonder grond steeds zwaarder onder druk'", date: "26 nov 2024", url: "https://www.boerderij.nl/opnieuw-kaalslag-boeren-zonder-grond-steeds-zwaarder-onder-druk" },
+  { title: "'Arbeidsmigratie ontmoedigen'", date: "24 sep 2024", url: "https://www.boerderij.nl/arbeidsmigratie-ontmoedigen" },
+  { title: "'Zorgen om toekomst van de aardappelteelt'", date: "13 aug 2024", url: "https://www.boerderij.nl/zorgen-om-toekomst-van-de-aardappelteelt" },
+  { title: "'Het weer van de toekomst'", date: "11 jun 2024", url: "https://www.boerderij.nl/het-weer-van-de-toekomst" },
+  { title: "'Te kort door de bocht om gebruiker middelen voor de rechter te dagen'", date: "30 apr 2024", url: "https://www.boerderij.nl/te-kort-door-de-bocht-om-gebruiker-gewasbeschermingsmiddelen-voor-de-rechter-te-dagen" },
+  { title: "'Durf te zaaien'", date: "27 feb 2024", url: "https://www.boerderij.nl/durf-te-zaaien" },
+  { title: "'Boerenbelang weegt niet het zwaarst in waterschap'", date: "5 dec 2023", url: "https://www.boerderij.nl/boerenbelang-weegt-niet-het-zwaarst-in-waterschap" },
+  { title: "'De drie B's: betrokken, behulpzaam en betrouwbaar'", date: "7 nov 2023", url: "https://www.boerderij.nl/de-drie-bs-betrokken-behulpzaam-en-betrouwbaar" },
+  { title: "'We kunnen nog heel wat leren van de Belgen'", date: "3 okt 2023", url: "https://www.boerderij.nl/we-kunnen-nog-heel-wat-leren-van-de-belgen" },
+  { title: "'Hoe kan aardappelprijs zo snel zoveel zakken?'", date: "5 sep 2023", url: "https://www.boerderij.nl/hoe-kan-aardappelprijs-zo-snel-zo-veel-zakken" },
+];
+
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -103,6 +118,12 @@ export default function Home() {
   const { toast } = useToast();
   const contactMutation = useSubmitContact();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [columnIndex, setColumnIndex] = useState(0);
+  const COLS_VISIBLE = 3;
+  const canPrev = columnIndex > 0;
+  const canNext = columnIndex + COLS_VISIBLE < columns.length;
+  const prevColumn = () => canPrev && setColumnIndex(i => i - 1);
+  const nextColumn = () => canNext && setColumnIndex(i => i + 1);
   
   const form = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
@@ -506,6 +527,87 @@ export default function Home() {
               </form>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* COLUMNS SECTION */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="text-center mb-12">
+            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+              <BookOpen className="w-4 h-4" />
+              Columns in De Boerderij
+            </motion.div>
+            <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              Mat Smeets schrijft over de sector
+            </motion.h2>
+            <motion.p variants={fadeIn} className="text-muted-foreground max-w-2xl mx-auto">
+              Als akkerbouwer uit Maasbree deelt Mat zijn visie op actuele thema's in de landbouw via zijn vaste column in vakblad De Boerderij.
+            </motion.p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
+              <AnimatePresence mode="wait">
+                {columns.slice(columnIndex, columnIndex + COLS_VISIBLE).map((col, i) => (
+                  <motion.a
+                    key={col.url}
+                    href={col.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    transition={{ duration: 0.35, delay: i * 0.07 }}
+                    className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                  >
+                    {/* Top accent */}
+                    <div className="bg-primary h-2 w-full" />
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+                          <BookOpen className="w-3 h-3" />
+                          Column
+                        </span>
+                        <span className="text-xs text-muted-foreground">{col.date}</span>
+                      </div>
+                      <h3 className="text-foreground font-serif font-bold text-lg leading-snug mb-4 group-hover:text-primary transition-colors duration-200 flex-1">
+                        {col.title}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-sm font-semibold text-primary mt-2">
+                        Lees column
+                        <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                      </div>
+                    </div>
+                  </motion.a>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-10">
+              <button
+                onClick={prevColumn}
+                disabled={!canPrev}
+                className="w-11 h-11 rounded-full border-2 border-border flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                aria-label="Vorige columns"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <span className="text-sm text-muted-foreground">
+                {columnIndex + 1}–{Math.min(columnIndex + COLS_VISIBLE, columns.length)} van {columns.length}
+              </span>
+              <button
+                onClick={nextColumn}
+                disabled={!canNext}
+                className="w-11 h-11 rounded-full border-2 border-border flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                aria-label="Volgende columns"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
