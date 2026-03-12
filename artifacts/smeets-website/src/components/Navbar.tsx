@@ -20,6 +20,7 @@ export function Navbar() {
     { name: "Over Ons", href: "#about" },
     { name: "Producten", href: "#products" },
     { name: "Waarom Wij", href: "#features" },
+    { name: "Columns", href: "#columns" },
     { name: "Contact", href: "#contact" },
   ];
 
