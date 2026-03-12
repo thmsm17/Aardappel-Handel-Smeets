@@ -35,9 +35,9 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-6 max-w-7xl flex items-center justify-between">
         <a href="#home" className="flex items-center gap-3 z-50">
           <img 
-            src={`${import.meta.env.BASE_URL}images/logo.png`} 
+            src={`${import.meta.env.BASE_URL}images/logo.svg`} 
             alt="Smeets Logo" 
-            className="w-10 h-10 object-contain rounded-md"
+            className="w-10 h-10 object-contain"
           />
           <div className={cn(
             "font-serif font-bold text-xl transition-colors duration-300",

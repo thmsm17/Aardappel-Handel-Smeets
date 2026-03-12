@@ -9,9 +9,9 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <img 
-                src={`${import.meta.env.BASE_URL}images/logo.png`} 
+                src={`${import.meta.env.BASE_URL}images/logo.svg`} 
                 alt="Smeets Logo" 
-                className="w-10 h-10 object-contain rounded-md bg-white p-1"
+                className="w-10 h-10 object-contain"
               />
               <span className="font-serif font-bold text-xl">Aardappel Handel Smeets</span>
             </div>
