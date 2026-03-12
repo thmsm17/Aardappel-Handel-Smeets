@@ -124,10 +124,10 @@ export default function Home() {
         });
         form.reset();
       },
-      onError: () => {
+      onError: (err) => {
         toast({
-          title: "Er is iets misgegaan.",
-          description: "Probeer het later nog eens.",
+          title: "Bericht niet verzonden",
+          description: err instanceof Error ? err.message : "Probeer het later nog eens.",
           variant: "destructive",
         });
       }

@@ -1,5 +1,16 @@
 import { Router } from "express";
 import { Resend } from "resend";
+import rateLimit from "express-rate-limit";
+
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: "U heeft te veel berichten verstuurd. Probeer het over een uur opnieuw.",
+  },
+});
 
 const router = Router();
 
@@ -36,7 +47,7 @@ async function getResendClient() {
   };
 }
 
-router.post("/contact", async (req, res) => {
+router.post("/contact", contactLimiter, async (req, res) => {
   const { name, email, phone, message } = req.body;
 
   if (!name || !email || !message) {
