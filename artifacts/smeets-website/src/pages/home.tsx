@@ -563,14 +563,29 @@ export default function Home() {
                     transition={{ duration: 0.35, delay: i * 0.07 }}
                     className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                   >
-                    {/* Top accent */}
-                    <div className="bg-primary h-2 w-full" />
+                    {/* Thumbnail image */}
+                    <div className="relative h-44 overflow-hidden">
+                      <img
+                        src={`${import.meta.env.BASE_URL}images/column-aardappel.jpg`}
+                        alt="Aardappeloogst"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 text-primary text-xs font-semibold shadow">
+                        <BookOpen className="w-3 h-3" />
+                        Column
+                      </span>
+                    </div>
                     <div className="p-6 flex flex-col flex-1">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-                          <BookOpen className="w-3 h-3" />
-                          Column
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={`${import.meta.env.BASE_URL}images/mat-smeets-column.jpg`}
+                            alt="Mat Smeets"
+                            className="w-7 h-7 rounded-full object-cover object-top border-2 border-primary/20"
+                          />
+                          <span className="text-xs text-muted-foreground font-medium">Mat Smeets</span>
+                        </div>
                         <span className="text-xs text-muted-foreground">{col.date}</span>
                       </div>
                       <h3 className="text-foreground font-serif font-bold text-lg leading-snug mb-4 group-hover:text-primary transition-colors duration-200 flex-1">
