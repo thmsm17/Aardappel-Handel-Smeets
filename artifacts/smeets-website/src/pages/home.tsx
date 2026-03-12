@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import columnThumbnail from "@assets/image_1773265710141.png";
+import matSmeetsAvatar from "@assets/image_1773263747396.png";
 import { ArrowRight, CheckCircle2, Leaf, Sprout, Tractor, PackageSearch, Star, Truck, MapPin, Mail, Phone, Loader2, X, ChevronLeft, ChevronRight, BookOpen, ExternalLink } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -566,7 +568,7 @@ export default function Home() {
                     {/* Thumbnail image */}
                     <div className="relative h-44 overflow-hidden">
                       <img
-                        src={`${import.meta.env.BASE_URL}images/column-aardappel.jpg`}
+                        src={columnThumbnail}
                         alt="Aardappeloogst"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -580,7 +582,7 @@ export default function Home() {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <img
-                            src={`${import.meta.env.BASE_URL}images/mat-smeets-column.jpg`}
+                            src={matSmeetsAvatar}
                             alt="Mat Smeets"
                             className="w-7 h-7 rounded-full object-cover object-top border-2 border-primary/20"
                           />
