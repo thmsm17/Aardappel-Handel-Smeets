@@ -87,18 +87,18 @@ const products: Product[] = [
 ];
 
 const columns = [
-  { title: "'Spuitvrije zone maar snel vergeten'", date: "20 mei 2025", url: "https://www.boerderij.nl/spuitvrije-zone-maar-snel-vergeten" },
-  { title: "'Kostprijsdekkend saldo aardappelprijzen'", date: "25 feb 2025", url: "https://www.boerderij.nl/kostprijsdekkend-saldo-aardappelprijzen" },
-  { title: "'Opnieuw kaalslag: boeren zonder grond steeds zwaarder onder druk'", date: "26 nov 2024", url: "https://www.boerderij.nl/opnieuw-kaalslag-boeren-zonder-grond-steeds-zwaarder-onder-druk" },
-  { title: "'Arbeidsmigratie ontmoedigen'", date: "24 sep 2024", url: "https://www.boerderij.nl/arbeidsmigratie-ontmoedigen" },
-  { title: "'Zorgen om toekomst van de aardappelteelt'", date: "13 aug 2024", url: "https://www.boerderij.nl/zorgen-om-toekomst-van-de-aardappelteelt" },
-  { title: "'Het weer van de toekomst'", date: "11 jun 2024", url: "https://www.boerderij.nl/het-weer-van-de-toekomst" },
-  { title: "'Te kort door de bocht om gebruiker middelen voor de rechter te dagen'", date: "30 apr 2024", url: "https://www.boerderij.nl/te-kort-door-de-bocht-om-gebruiker-gewasbeschermingsmiddelen-voor-de-rechter-te-dagen" },
-  { title: "'Durf te zaaien'", date: "27 feb 2024", url: "https://www.boerderij.nl/durf-te-zaaien" },
-  { title: "'Boerenbelang weegt niet het zwaarst in waterschap'", date: "5 dec 2023", url: "https://www.boerderij.nl/boerenbelang-weegt-niet-het-zwaarst-in-waterschap" },
-  { title: "'De drie B's: betrokken, behulpzaam en betrouwbaar'", date: "7 nov 2023", url: "https://www.boerderij.nl/de-drie-bs-betrokken-behulpzaam-en-betrouwbaar" },
-  { title: "'We kunnen nog heel wat leren van de Belgen'", date: "3 okt 2023", url: "https://www.boerderij.nl/we-kunnen-nog-heel-wat-leren-van-de-belgen" },
-  { title: "'Hoe kan aardappelprijs zo snel zoveel zakken?'", date: "5 sep 2023", url: "https://www.boerderij.nl/hoe-kan-aardappelprijs-zo-snel-zo-veel-zakken" },
+  { title: "'Spuitvrije zone maar snel vergeten'", date: "20 mei 2025", url: "https://www.boerderij.nl/spuitvrije-zone-maar-snel-vergeten", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Kostprijsdekkend saldo aardappelprijzen'", date: "25 feb 2025", url: "https://www.boerderij.nl/kostprijsdekkend-saldo-aardappelprijzen", image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Opnieuw kaalslag: boeren zonder grond steeds zwaarder onder druk'", date: "26 nov 2024", url: "https://www.boerderij.nl/opnieuw-kaalslag-boeren-zonder-grond-steeds-zwaarder-onder-druk", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Arbeidsmigratie ontmoedigen'", date: "24 sep 2024", url: "https://www.boerderij.nl/arbeidsmigratie-ontmoedigen", image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Zorgen om toekomst van de aardappelteelt'", date: "13 aug 2024", url: "https://www.boerderij.nl/zorgen-om-toekomst-van-de-aardappelteelt", image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Het weer van de toekomst'", date: "11 jun 2024", url: "https://www.boerderij.nl/het-weer-van-de-toekomst", image: "https://images.unsplash.com/photo-1504197832061-98fed3f93c22?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Te kort door de bocht om gebruiker middelen voor de rechter te dagen'", date: "30 apr 2024", url: "https://www.boerderij.nl/te-kort-door-de-bocht-om-gebruiker-gewasbeschermingsmiddelen-voor-de-rechter-te-dagen", image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Durf te zaaien'", date: "27 feb 2024", url: "https://www.boerderij.nl/durf-te-zaaien", image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Boerenbelang weegt niet het zwaarst in waterschap'", date: "5 dec 2023", url: "https://www.boerderij.nl/boerenbelang-weegt-niet-het-zwaarst-in-waterschap", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop" },
+  { title: "'De drie B's: betrokken, behulpzaam en betrouwbaar'", date: "7 nov 2023", url: "https://www.boerderij.nl/de-drie-bs-betrokken-behulpzaam-en-betrouwbaar", image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=800&auto=format&fit=crop" },
+  { title: "'We kunnen nog heel wat leren van de Belgen'", date: "3 okt 2023", url: "https://www.boerderij.nl/we-kunnen-nog-heel-wat-leren-van-de-belgen", image: "https://images.unsplash.com/photo-1559329007-40df8a9345d8?q=80&w=800&auto=format&fit=crop" },
+  { title: "'Hoe kan aardappelprijs zo snel zoveel zakken?'", date: "5 sep 2023", url: "https://www.boerderij.nl/hoe-kan-aardappelprijs-zo-snel-zo-veel-zakken", image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop" },
 ];
 
 const fadeIn = {
@@ -566,8 +566,8 @@ export default function Home() {
                     {/* Thumbnail image */}
                     <div className="relative overflow-hidden" style={{ height: '176px' }}>
                       <img
-                        src={`${import.meta.env.BASE_URL}images/column-aardappel.jpg`}
-                        alt="Aardappeloogst"
+                        src={col.image}
+                        alt={col.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         className="group-hover:scale-105 transition-transform duration-500"
                       />
