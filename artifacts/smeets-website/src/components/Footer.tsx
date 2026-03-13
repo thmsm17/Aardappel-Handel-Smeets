@@ -53,7 +53,7 @@ export function Footer() {
         
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 text-center text-primary-foreground/60 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} Aardappel Handel Smeets. Alle rechten voorbehouden.</p>
-          <p>KVK: 12345678</p>
+          <p>KVK: 12025529</p>
         </div>
       </div>
     </footer>
